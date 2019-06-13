@@ -9,7 +9,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,6 +21,38 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.am-search {
+  border-radius : 10px
+}
+
+div.am-search-input {
+    background-color: #efeff4;
+}
+
+div.am-navbar-light .am-navbar-title {
+    color: black;
+}
+
+div.am-navbar-light {
+    background-color: #FFFFFF;
+}
+
+.am-list-header {
+    padding: 15px 15px 9px 30px;
+    text-align: left;
+}
+
+.am-list-item .am-list-line .am-list-content {
+line-height : 1.0;
+}
+
+.am-list-item .am-list-line {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 0px;
+    margin-left : 0px;
 }
 
 @keyframes App-logo-spin {
