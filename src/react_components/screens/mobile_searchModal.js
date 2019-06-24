@@ -1,6 +1,5 @@
 import React from 'react'
-import { SearchBar, Modal, List, Button, WhiteSpace, WingBlank } from 'antd-mobile';
-import { Typography } from 'antd';
+import { List, Button, Modal, WingBlank } from 'antd-mobile';
 import Sticky from '@wicked_query/react-sticky'
 import MobileNavBar from '../mobile_navbar'
 
@@ -9,6 +8,9 @@ import SearchModalHeader from '../mobile_searchModalHeader.js'
 import { connect } from 'react-redux'
 //import {fetchAllBanks} from '../networkManager'
 import {hideBankNameSearchModal, populateAllBankNames,populatePopularBankNames,userSelectedBank} from '../../actions/actions'
+
+var _ = require('lodash')
+var request = require("request");
 
 const mapStateToProps = (state) => {
     return {
@@ -26,10 +28,6 @@ const mapDispatchToProps = (dispatch) => {
         hideBankNameSearchModal : () => {dispatch(hideBankNameSearchModal())},
     }
 } 
-
-const { Title } = Typography;
-var _ = require('lodash')
-var request = require("request");
 
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -78,7 +76,6 @@ class SearchModal extends React.Component {
             that.props.populateAllBankNames(allBankNames) 
             
             that.setState({filteredBanks : allBankNames})
-
         });
 
     }
@@ -132,7 +129,6 @@ class SearchModal extends React.Component {
                     visible={this.props.isVisible}
                     onClose={this.onClose('modal2')}
                     animationType="slide-down"
-                    afterClose={() => { alert('afterClose'); }}
                     style = {{height:"100%"}} 
                 >
                     <Sticky>

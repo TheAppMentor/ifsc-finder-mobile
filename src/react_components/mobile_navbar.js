@@ -11,10 +11,9 @@ const lightStyle = {
     backgroundColor : "blue"
 }
 
-
 export default class MobileNavBar extends React.Component{
     
-    styleToApply = (this.props.mode == "darkMode") ? darkStyle : lightStyle  
+    styleToApply = (this.props.mode === "darkMode") ? darkStyle : lightStyle  
 
     render() {
         return(

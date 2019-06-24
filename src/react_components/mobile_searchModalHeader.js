@@ -1,9 +1,8 @@
 import React from 'react'
 import 'antd-mobile/dist/antd-mobile.css';
-import { WhiteSpace, WingBlank, SearchBar} from 'antd-mobile';
+import { WhiteSpace, SearchBar} from 'antd-mobile';
 import { Typography } from 'antd';
 import 'antd-mobile/dist/antd-mobile.css';
-
 
 const { Title } = Typography;
 

@@ -1,11 +1,15 @@
-import { createStore, compose} from 'redux'
+import { createStore, compose,applyMiddleware} from 'redux'
 import rootReducer from '../reducers/reducers'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
+import createSagaMiddleware from 'redux-saga'
+
+const sagaMiddleware = createSagaMiddleware()
+
 const enhancers = compose(
-    //    window.devToolsExtension ? window.devToolsExtension() : f => f
+    applyMiddleware(sagaMiddleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
 );
 
@@ -18,8 +22,9 @@ const persistConfig = {
 
 const pReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(pReducer,enhancers);
+export const store = createStore(
+    pReducer,
+    enhancers,
+    );
+
 export const persistor = persistStore(store);
-
-//export const store = createStore(surveyApp,enhancers)
-

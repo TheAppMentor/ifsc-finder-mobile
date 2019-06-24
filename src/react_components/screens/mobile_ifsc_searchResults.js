@@ -2,9 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import queryString from 'query-string'
 
-import { List} from 'antd-mobile';
+import { WhiteSpace, WingBlank, List} from 'antd-mobile';
 
 import MobileNavBar from '../mobile_navbar'
+import MobileHeader from '../mobile_header'
+import MobileTabBar from '../mobile_tabbar'
+import SearchResultsCard from '../mobile_resultCard'
 import FinalResultsCard  from '../mobile_finalResultCard.js'
 
 import SearchModalHeader from '../mobile_searchModalHeader'
@@ -29,8 +32,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-class MobileCityResultsScreen extends React.Component{
-
+class MobileIFSCSearchResultsScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -40,6 +42,7 @@ class MobileCityResultsScreen extends React.Component{
     }
 
     componentDidMount(){
+        this.anyRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
         const values = queryString.parse(this.props.location.search)
 
@@ -128,5 +131,5 @@ class MobileCityResultsScreen extends React.Component{
 
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(MobileCityResultsScreen)
+export default connect(mapStateToProps,mapDispatchToProps)(MobileIFSCSearchResultsScreen)
 

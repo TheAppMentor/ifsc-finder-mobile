@@ -1,17 +1,16 @@
 import React from 'react'
 import 'antd-mobile/dist/antd-mobile.css';
-import { WhiteSpace, WingBlank} from 'antd-mobile';
+import { Tag, WhiteSpace, WingBlank} from 'antd-mobile';
 import { Typography } from 'antd';
 import 'antd-mobile/dist/antd-mobile.css';
 
 import MobileSearchBar  from './mobile_searchBar'
 import SearchModal from './screens/mobile_searchModal'
-import CitySearchModal from './screens/mobile_citySearchModal.js'
 
 import { connect } from 'react-redux'
 //import {fetchAllBanks} from '../networkManager'
 
-import {showBankNameSearchModal,hideBankNameSearchModal} from '../actions/actions'
+import {showCityNameSearchModal,hideCityNameSearchModal,showBankNameSearchModal,hideBankNameSearchModal} from '../actions/actions'
 
 const { Title } = Typography;
 
@@ -24,11 +23,26 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         showBankNameSearchModal : () => {dispatch(showBankNameSearchModal())},
-        hideBankNameSearchModal : () => {dispatch(hideBankNameSearchModal())} 
+        hideBankNameSearchModal : () => {dispatch(hideBankNameSearchModal())},
+        showCityNameSearchModal : () => {dispatch(showCityNameSearchModal())},
+        hideCityNameSearchModal : () => {dispatch(hideCityNameSearchModal())} 
     }
 } 
 
 class MobileHeader extends React.Component{
+
+    onChange = (selected) => {
+        alert("Selected : " + JSON.stringify(selected)) 
+    }
+    
+    searchByCitySelected = (selected) => {
+        alert("searchByCitySelected Selected : " + JSON.stringify(selected)) 
+        this.props.showCityNameSearchModal() 
+    }
+    
+    searchByIFSCSelected = (selected) => {
+        alert("searchByIFSCSelected Selected : " + JSON.stringify(selected)) 
+    }
 
     state = {showModal : false}
 
@@ -41,18 +55,27 @@ class MobileHeader extends React.Component{
                     <Title style={{color:"#FAFAFA"}}>IFSC Finder</Title>
                     <Title level={3} style={{color:"#FAFAFA"}}>Find IFSC Code in 3 easy steps</Title>
                     <WhiteSpace size="lg" />
-                    <WhiteSpace size="lg" />
-                    <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Find Your Bank</Title>
+                    
+                    <Tag selected onChange={this.onChange} style={tagStyle}>Search Using Bank Name</Tag>
+                        {/*  <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Search Using Bank Name</Title> */}
                     <MobileSearchBar onFocusAction={this.props.showBankNameSearchModal} /> 
+                    
                     <WhiteSpace size="lg" />
                     <WhiteSpace size="lg" />
             </WingBlank>    
 
-                {/* <SearchModal /> */ }
-                <CitySearchModal />
+            <SearchModal />
+                {/* <CitySearchModal /> */ }
             </div> 
         )
     }
 }
+
+
+const tagStyle = {
+    margin:"10px", 
+    backgroundColor:"transparent"
+}
+
 
 export default connect(mapStateToProps,mapDispatchToProps)(MobileHeader)
