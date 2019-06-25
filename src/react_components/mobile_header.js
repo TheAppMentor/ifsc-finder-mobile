@@ -1,6 +1,6 @@
 import React from 'react'
 import 'antd-mobile/dist/antd-mobile.css';
-import { Tag, WhiteSpace, WingBlank} from 'antd-mobile';
+import { WhiteSpace, WingBlank} from 'antd-mobile';
 import { Typography } from 'antd';
 import 'antd-mobile/dist/antd-mobile.css';
 
@@ -55,9 +55,8 @@ class MobileHeader extends React.Component{
                     <Title style={{color:"#FAFAFA"}}>IFSC Finder</Title>
                     <Title level={3} style={{color:"#FAFAFA"}}>Find IFSC Code in 3 easy steps</Title>
                     <WhiteSpace size="lg" />
-                    
-                    <Tag selected onChange={this.onChange} style={tagStyle}>Search Using Bank Name</Tag>
-                        {/*  <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Search Using Bank Name</Title> */}
+                    <WhiteSpace size="lg" />
+                        <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Search Using Bank Name</Title>
                     <MobileSearchBar onFocusAction={this.props.showBankNameSearchModal} /> 
                     
                     <WhiteSpace size="lg" />
@@ -70,12 +69,5 @@ class MobileHeader extends React.Component{
         )
     }
 }
-
-
-const tagStyle = {
-    margin:"10px", 
-    backgroundColor:"transparent"
-}
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(MobileHeader)

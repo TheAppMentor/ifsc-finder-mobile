@@ -48,6 +48,7 @@ class FinalResultsCard extends React.Component{
         //creates a reference for your element to use
         this.myDivToFocus = React.createRef()
     }
+    
     componentDidMount(){
         //.current is verification that your element has rendered
         if(this.myDivToFocus.current){

@@ -6,20 +6,18 @@ import MobileNavBar from '../mobile_navbar'
 import SearchModalHeader from '../mobile_searchModalHeader.js'
 
 import { connect } from 'react-redux'
-import {populateFinalFetchedBankBranch,populateBranchesForSelectedCitySelectedLocation, hideBranchNameSearchModal, userSelectedBranch, finalFetchedBank} from '../../actions/actions'
+import {populateFinalFetchedBankBranch,populateBranchesForSelectedCitySelectedLocation, hideBranchNameSearchModal, userSelectedBranch} from '../../actions/actions'
 
 import {fetchBankDetailsForUserSelection} from '../../networkManager'
 
 var _ = require('lodash')
 var request = require("request");
-var Trie = require('mnemonist/trie');
 
 const mapStateToProps = (state) => {
     return {
         allBranchesForSelectedBankAndCity : state.branchReducer.allBranchesForSelectedBankAndCity,
         selectedBank : state.userSelectionReducer.selectedBank,
         selectedCity : state.userSelectionReducer.selectedCity,
-        finalFetchedBank : state.userSelectionReducer.finalFetchedBank,
         //selectedBranch : state.userSelectionReducer.selectedBranch,
         isVisible : state.visibilityPropertiesReducer.isShowingBranchSearchModal
     }

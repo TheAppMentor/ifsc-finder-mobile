@@ -2,8 +2,7 @@ import React from 'react';
 import './App.css';
 
 import 'antd-mobile/dist/antd-mobile.css';
-
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import history from './history';
 
 import MobileHomeScreen from './react_components/screens/mobile_homeScreen' 

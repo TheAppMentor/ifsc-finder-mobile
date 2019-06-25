@@ -20,7 +20,7 @@ export default class MobileNavBar extends React.Component{
             <div>
                 <NavBar
                     mode="light"
-                    backgroundColor = {this.styleToApply.backgroundColor} 
+                    backgroundcolor = {this.styleToApply.backgroundColor} 
                     color = {this.styleToApply.color} 
                     icon={<Icon type="cross" />}
                         onLeftClick={() => {

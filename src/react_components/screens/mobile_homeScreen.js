@@ -5,7 +5,6 @@ import {Tag, WhiteSpace} from 'antd-mobile'
 
 import MobileNavBar from '../mobile_navbar'
 import MobileHeader from '../mobile_header'
-import FooterPage from '../mobile_footer'
 import SearchResultsCard from '../mobile_searchResultsCard'
 import FinalResultsCard  from '../mobile_finalResultCard'
 
@@ -110,6 +109,7 @@ class MobileHomeScreen extends React.Component{
                                                         addressState={this.props.finalBankFetched.state}
                                                         ifsc={this.props.finalBankFetched.ifscCode}
                                                         micr= {this.props.finalBankFetched.micr ? this.props.finalBankFetched.micr : "NA"} /> 
+                                                    <MobileAd300X250 />
                                             </React.Fragment> 
                                                         } 
 
