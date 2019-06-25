@@ -92,7 +92,7 @@ class MobileHomeScreen extends React.Component{
                                             <WhiteSpace size="sm" />
                                             <SearchResultsCard mainTitle={this.props.selectedBank} 
                                                 subTitle={this.props.selectedCity} 
-                                                statistic={this.props.allBranchesForSelectedBankSelectedCity.length} 
+                                                statistic={this.props.allBranchesForSelectedBankSelectedCity ? this.props.allBranchesForSelectedBankSelectedCity.length : 0 } 
                                                 statisticSubTitle="Branches Found"
                                                 onSearchAction = {this.props.showBranchNameSearchModal} 
                                             /> 
