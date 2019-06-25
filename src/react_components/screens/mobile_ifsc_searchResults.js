@@ -47,6 +47,7 @@ class MobileIFSCSearchResultsScreen extends React.Component{
         const values = queryString.parse(this.props.location.search)
 
         this.props.userSelectedCity(values.cityName) 
+        
         var that = this; 
         var options = { method: 'GET',
             url: 'http://localhost:3000/getAllBanksByLocation?searchInput=' + values.cityName,

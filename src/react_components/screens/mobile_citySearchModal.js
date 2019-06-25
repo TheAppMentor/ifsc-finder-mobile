@@ -8,9 +8,9 @@ import SearchModalHeader from '../mobile_searchModalHeader.js'
 import { connect } from 'react-redux'
 import {populateAllCityNames, hideCityNameSearchModal, userSelectedCity} from '../../actions/actions'
 
+import {fetchAllLocationForSelectedBank} from '../../networkManager'
+
 var _ = require('lodash')
-var request = require("request");
-var Trie = require('mnemonist/trie');
 
 const mapStateToProps = (state) => {
     return {
@@ -49,48 +49,16 @@ class CitySearchModal extends React.Component {
     }
 
     componentDidMount(){
-        if (this.props.selectedBank === null){
-            return
-        }  
 
-        let urlToFetch = 'http://localhost:3000/getAllKnownCities/?searchInput=' 
-        if (this.props.selectedBank !== null) {
-            urlToFetch = 'http://localhost:3000/getLocationList/?bankName=' + this.props.selectedBank + "&searchInput=" 
-        } 
+        fetchAllLocationForSelectedBank(this.props.selectedBank).then((fetchedCities) => {
 
-        var that = this; 
-        var options = { method: 'GET',
-            url: urlToFetch,
-            headers: 
-            { 'cache-control': 'no-cache',
-                'Content-Type': 'application/json' 
-            }
-        };
-
-        request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-
-            let allCityObj = JSON.parse(body).results
-            
-            //that.buildCitySearchTrie(allCityObj) 
-            
+            let allCityObj = fetchedCities.results
             console.log("Add City OBj are " + JSON.stringify(allCityObj))
 
-            that.props.populateAllCityNames(allCityObj)
-            that.setState( {filteredCitiesCount : allCityObj.length})
-            that.setState({filteredCities : allCityObj.slice(0,500)})
-        });
-    }
-
-    cityTrie = null 
-    stateTrie = null
-    
-    buildCitySearchTrie(allCities) {
-        let onlyCities = _.map(allCities, 'city')
-        let onlyStates  = _.map(allCities, 'state')
-
-        this.cityTrie = Trie.from(onlyCities)
-        this.stateTrie = Trie.from(onlyStates)
+            this.props.populateAllCityNames(allCityObj)
+            this.setState( {filteredCitiesCount : allCityObj.length})
+            this.setState({filteredCities : allCityObj.slice(0,500)})
+        })
     }
 
     showModal = key => (e) => {
@@ -107,7 +75,6 @@ class CitySearchModal extends React.Component {
     }
 
     listItemClicked = (selectedItem) => {
-        //alert("List item selected " + JSON.stringify(selectedItem.title))
         this.props.userSelectedCity(selectedItem.title.city) 
         this.props.hideCityNameSearchModal() 
     }

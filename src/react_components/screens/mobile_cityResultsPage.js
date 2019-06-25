@@ -9,10 +9,12 @@ import FinalResultsCard  from '../mobile_finalResultCard.js'
 
 import SearchModalHeader from '../mobile_searchModalHeader'
 
+import {fetchAllBanksForLocation} from '../../networkManager'
+
+
 import Sticky from '@wicked_query/react-sticky'
 import { populateAllBankDetails, userSelectedCity } from '../../actions/actions'
 
-var request = require("request");
 var _ = require("lodash");
 
 const mapStateToProps = (state) => {
@@ -42,37 +44,19 @@ class MobileCityResultsScreen extends React.Component{
     componentDidMount(){
 
         const values = queryString.parse(this.props.location.search)
-
         this.props.userSelectedCity(values.cityName) 
-        var that = this; 
-        var options = { method: 'GET',
-            url: 'http://localhost:3000/getAllBanksByLocation?searchInput=' + values.cityName,
-            headers: 
-            { 'cache-control': 'no-cache',
-                'Content-Type': 'application/json' } };
 
-        request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-            //alert(body)
-            let allBanksInCity = JSON.parse(body).results
+        fetchAllBanksForLocation(values.cityName).then((allFetchchedBanks) => {
+            let allBanksInCity = allFetchchedBanks.results
             console.log(allBanksInCity) 
-            that.props.populateAllBankDetails(allBanksInCity) 
-            that.setState( {filteredBankDetails : allBanksInCity.slice(0,500)})
-        });
+            this.props.populateAllBankDetails(allBanksInCity) 
+            this.setState( {filteredBankDetails : allBanksInCity.slice(0,500)})
+
+        }) 
     }
 
     // TODO : This guy is used in other places also... refactor it.
     onSearch = (val) => {
-        // Althought we show only a subset, when we search.. we should search all cities.
-       
-        /*
-        let filteredCities =  this.cityTrie.find(_.upperCase(val))
-       let filteredStates =  this.stateTrie.find(_.upperCase(val))
-
-        let allMatches = _.unionWith(filteredCities,filteredStates, _.isEqual); 
-        console.log("allMatches is : " + allMatches)
-        */
-
         let filteredCitiesArr = _.filter(this.props.allFetchedBankDetails, (eachBankDetail) => {
             return (
                 _.lowerCase(eachBankDetail.name).indexOf(_.lowerCase(val)) > -1 || 

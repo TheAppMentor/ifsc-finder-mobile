@@ -12,7 +12,12 @@ const lightStyle = {
 }
 
 export default class MobileNavBar extends React.Component{
-    
+
+    constructor(props){
+        super(props);
+    }
+
+
     styleToApply = (this.props.mode === "darkMode") ? darkStyle : lightStyle  
 
     render() {
@@ -22,12 +27,14 @@ export default class MobileNavBar extends React.Component{
                     mode="light"
                     backgroundcolor = {this.styleToApply.backgroundColor} 
                     color = {this.styleToApply.color} 
-                    icon={<Icon type="cross" />}
+                    icon={<Icon type={this.props.leftIconName} />}
                         onLeftClick={() => {
                             if (this.props.onUserLeftButtonClick !== undefined) {
+                               alert("Left Button Clicked") 
                                 this.props.onUserLeftButtonClick()
                             } 
-                        }}
+                        }
+                        }
                         rightContent={[
                         ]}
                             >IFSC Finder</NavBar>

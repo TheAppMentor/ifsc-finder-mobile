@@ -6,11 +6,10 @@ import MobileNavBar from '../mobile_navbar'
 import SearchModalHeader from '../mobile_searchModalHeader.js'
 
 import { connect } from 'react-redux'
-//import {fetchAllBanks} from '../networkManager'
+import {fetchAllBanks} from '../../networkManager'
 import {hideBankNameSearchModal, populateAllBankNames,populatePopularBankNames,userSelectedBank} from '../../actions/actions'
 
 var _ = require('lodash')
-var request = require("request");
 
 const mapStateToProps = (state) => {
     return {
@@ -50,34 +49,25 @@ class SearchModal extends React.Component {
     }
 
     componentDidMount(){
-        
-        var that = this; 
-        var options = { method: 'GET',
-            url: 'http://localhost:3000/getBanks/?q=',
-            headers: 
-            { 'cache-control': 'no-cache',
-                'Content-Type': 'application/json' } };
 
-        request(options, function (error, response, body) {
-            if (error) throw new Error(error);
+        fetchAllBanks()
+            .then((fetchedBanks) => {
+                let allBanks = fetchedBanks.results[1].results
+                let allPopularBanks = fetchedBanks.results[0].results
 
-            let allBanks = JSON.parse(body).results[1].results
-            let allPopularBanks = JSON.parse(body).results[0].results
-            
-            let allBankNames = _.map(allBanks, (eachBank) => {
-                return eachBank.title
+                let allBankNames = _.map(allBanks, (eachBank) => {
+                    return eachBank.title
+                })
+
+                let popularBankNames = _.map(allPopularBanks, (eachBank) => {
+                    return eachBank.title
+                })
+
+                this.props.populatePopularBankNames(popularBankNames) 
+                this.props.populateAllBankNames(allBankNames) 
+
+                this.setState({filteredBanks : allBankNames})
             })
-            
-            let popularBankNames = _.map(allPopularBanks, (eachBank) => {
-                return eachBank.title
-            })
-            
-            that.props.populatePopularBankNames(popularBankNames) 
-            that.props.populateAllBankNames(allBankNames) 
-            
-            that.setState({filteredBanks : allBankNames})
-        });
-
     }
 
     showModal = key => (e) => {
@@ -132,8 +122,8 @@ class SearchModal extends React.Component {
                     style = {{height:"100%"}} 
                 >
                     <Sticky>
-                        <MobileNavBar onUserLeftButtonClick={this.props.hideBankNameSearchModal}/>             
-                            <SearchModalHeader onSearch={this.onSearch} /> 
+                        <MobileNavBar onUserLeftButtonClick={this.props.hideBankNameSearchModal} leftIconName={'cross'}/>             
+                        <SearchModalHeader mainTitle="Select Bank" searchBarPlaceHolder="Search Bank" onSearch={this.onSearch} /> 
                     </Sticky>
                             {/*   <MobileListView /> */}
 

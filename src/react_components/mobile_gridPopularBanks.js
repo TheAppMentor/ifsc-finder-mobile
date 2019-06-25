@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import { Grid } from 'antd-mobile';
 
-const popularBankNames = ["State Bank Of India (SBI)","Punjab National Bank (PNB)","Indian Overseas Bank (IOB)","Allahabad Bank","Axis Bank Ltd","Bank Of Baroda (BOB)","HDFC Bank","ICICI Bank", "Union Bank"]
+const popularBankNames = ["State Bank Of India (SBI)","Punjab National Bank (PNB)","Indian Overseas Bank (IOB)","Allahabad Bank","Axis Bank Ltd","Bank Of Baroda (BOB)","HDFC Bank","ICICI Bank LTD", "Union Bank"]
 const popularBankLogos = ["SBI_100x75_small","PNB_100x75_small","IOB_100x75_small","Allahabad_100x75_small","Axis_100x75_small","BOB_100x75_small","HDFC_100x75_small","ICICI_100x75_small","Union_100x75_small"]
 
 const data = Array.from(new Array(9)).map((_val, i) => ({

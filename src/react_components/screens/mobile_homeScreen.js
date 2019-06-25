@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {Tag, WhiteSpace} from 'antd-mobile'
+import {Flex, WhiteSpace,Divider} from 'antd-mobile'
 
+import { Typography } from 'antd';
 import MobileNavBar from '../mobile_navbar'
 import MobileHeader from '../mobile_header'
 import SearchResultsCard from '../mobile_searchResultsCard'
@@ -15,9 +16,11 @@ import BranchSearchModal from './mobile_branchSearchModal'
 
 import Sticky from '@wicked_query/react-sticky'
 
-import {showBranchNameSearchModal,showCityNameSearchModal,resetVisibilityProperties,resetUserSelection, userSelectedCity, userSelectedBranch, populateLocationForSelectedBank} from '../../actions/actions'
+import {showBranchNameSearchModal,showCityNameSearchModal,resetVisibilityProperties,resetUserSelection, userSelectedBank, userSelectedCity, userSelectedBranch, populateLocationForSelectedBank} from '../../actions/actions'
 
 import {fetchAllLocationsForBank} from '../../networkManager'
+
+const { Title } = Typography;
 
 const mapStateToProps = (state) => {
     return {
@@ -31,6 +34,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        userSelectedBank : (selectedBank) => {dispatch(userSelectedBank(selectedBank))},
         userSelectedCity : (selectedCity) => {dispatch(userSelectedCity(selectedCity))},
         userSelectedBranch : (selectedBranch) => {dispatch(userSelectedBranch(selectedBranch))},
         populateLocationForSelectedBank : (locationsForSelectedBank) => {dispatch(populateLocationForSelectedBank (locationsForSelectedBank))},
@@ -55,6 +59,7 @@ class MobileHomeScreen extends React.Component{
             .then((allLocations) => {
                 console.log(allLocations) 
                 this.props.populateLocationForSelectedBank(allLocations['results'])
+                this.props.userSelectedBank(selection.text)
             })
     }
     
@@ -62,7 +67,7 @@ class MobileHomeScreen extends React.Component{
         return(
             <div className="App">
                 <Sticky>
-                    <MobileNavBar titleColor="#ffffff"/> 
+                    <MobileNavBar titleColor="#ffffff" leftIconName={null} /> 
                 </Sticky>
                 <MobileHeader /> 
                 <GridPopularBanks userSelectedBank={this.userSelectedBankOnGrid} />
@@ -109,17 +114,65 @@ class MobileHomeScreen extends React.Component{
                                                         addressState={this.props.finalBankFetched.state}
                                                         ifsc={this.props.finalBankFetched.ifscCode}
                                                         micr= {this.props.finalBankFetched.micr ? this.props.finalBankFetched.micr : "NA"} /> 
-                                                    <MobileAd300X250 />
+                                                <WhiteSpace size="lg" />
+                                                <WhiteSpace size="lg" />
                                             </React.Fragment> 
                                                         } 
 
                                             <div style={footerStyle}>
                                                 <WhiteSpace size="sm" />
 
-
                                                 <div>
-                                                    <Tag onChange={this.searchByCitySelected} style={tagStyle}>Search Using City</Tag>
-                                                    <Tag onChange={this.searchByIFSCSelected} style={tagStyle}>Search Using IFSC</Tag>
+                                                    <Flex justify="center" wrap="true" > 
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">Search Using Location</a></Title>
+                                                        </Flex.Item>
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">Search Using IFSC</a></Title>
+                                                        </Flex.Item>
+                                                    </Flex> 
+                                                    <Flex justify="center" wrap="true" > 
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">RTGS Holidays 2019</a></Title>
+                                                        </Flex.Item>
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">Find MICR Code</a></Title>
+                                                        </Flex.Item>
+                                                    </Flex> 
+
+                                                    <Flex justify="center" > 
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">SBI IFSC Codes</a></Title>
+                                                        </Flex.Item>
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">PNB IFSC Codes</a></Title>
+                                                        </Flex.Item>
+                                                    </Flex> 
+                                                    <Flex justify="center" > 
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">HDFC IFSC Codes</a></Title>
+                                                        </Flex.Item>
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">ICICI IFSC Codes</a></Title>
+                                                        </Flex.Item>
+                                                    </Flex> 
+                                                    <hr color="#CACACA" style={{height:"0.5px"}}/> 
+                                                    <Flex justify="center" > 
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} >Legal Disclaimer</a></Title>
+                                                        </Flex.Item>
+                                                    </Flex> 
+                                                    <Flex> 
+                                                        <Flex.Item style={{fontSize:8 }} align="center">
+                                                            <p  align="justify">www.ifsc.today has made every attempt to ensure the accuracy of the information provided on this website. Bank Details and IFS code has been fetched from the Reserve Bank of India's website. This organization (www.ifsc.today) does not accept any responsibility or liability for the accuracy, content, completeness, legality, or reliability of the information contained on this website.</p>
+                                                        </Flex.Item>
+                                                    </Flex> 
+                                                    <Flex justify="center" > 
+                                                        <Flex.Item align="center">
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} >Data last updated : 28-May-2019</a></Title>
+                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">© 2019 <a href="https://www.ifsc.today/">www.ifsc.today</a></a></Title>
+                                                        </Flex.Item>
+                                                    </Flex> 
                                                 </div>
                                                 <WhiteSpace size="sm" />
                                             </div>
@@ -143,7 +196,7 @@ const footerStyle = {
   position: "inherit",
   left: "0",
   bottom: "0",
-  height: "44px",
+  height: "auto",
 };
 
 

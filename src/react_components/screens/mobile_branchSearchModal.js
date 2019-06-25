@@ -8,10 +8,9 @@ import SearchModalHeader from '../mobile_searchModalHeader.js'
 import { connect } from 'react-redux'
 import {populateFinalFetchedBankBranch,populateBranchesForSelectedCitySelectedLocation, hideBranchNameSearchModal, userSelectedBranch} from '../../actions/actions'
 
-import {fetchBankDetailsForUserSelection} from '../../networkManager'
+import {fetchAllBranchesForSelectedCitySelectedLocation,fetchBankDetailsForUserSelection} from '../../networkManager'
 
 var _ = require('lodash')
-var request = require("request");
 
 const mapStateToProps = (state) => {
     return {
@@ -58,35 +57,16 @@ class BranchSearchModal extends React.Component {
             return
         } 
 
-        let urlToFetch = 'http://localhost:3000/getAllKnownBranches/?searchInput=' 
-        if (this.props.selectedBank !== null) {
-            urlToFetch = 'http://localhost:3000/getBranchList/?bankName=' + this.props.selectedBank
-        } 
-        if (this.props.selectedBank !== null && this.props.selectedCity !== null ) {
-            urlToFetch = 'http://localhost:3000/getBranchList/?bankName=' + this.props.selectedBank + '&locationName=' + this.props.selectedCity + "&searchInput=" 
-        } 
+        fetchAllBranchesForSelectedCitySelectedLocation(this.props.selectedBank,this.props.selectedCity)
+            .then((allFetchedBranches) => {
 
-        var that = this; 
-        var options = { method: 'GET',
-            url: urlToFetch,
-            headers: 
-            { 'cache-control': 'no-cache',
-                'Content-Type': 'application/json' 
-            }
-        };
+                let allBranchObj = allFetchedBranches.results
 
-        request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-
-            let allBranchObj = JSON.parse(body).results
-            
-            console.log("Add City OBj are " + JSON.stringify(allBranchObj))
-
-            that.props.populateBranchesForSelectedCitySelectedLocation(allBranchObj)
-            that.setState( {filteredBranchCount : allBranchObj.length})
-            that.setState({filteredBranches : allBranchObj.slice(0,500)})
-        });
-    }
+                this.props.populateBranchesForSelectedCitySelectedLocation(allBranchObj)
+                this.setState( {filteredBranchCount : allBranchObj.length})
+                this.setState({filteredBranches : allBranchObj.slice(0,500)})
+            })
+   }
 
     showModal = key => (e) => {
         e.preventDefault(); // 修复 Android 上点击穿透
