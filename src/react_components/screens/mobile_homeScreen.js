@@ -47,6 +47,10 @@ const mapDispatchToProps = (dispatch) => {
 
 class MobileHomeScreen extends React.Component{
 
+    constructor(props){
+        super(props)
+    }
+
     componentDidMount(){
         window.scrollTo(0, 0)
 
@@ -62,13 +66,19 @@ class MobileHomeScreen extends React.Component{
                 this.props.userSelectedBank(selection.text)
             })
     }
-    
+
+    onCityNameSearch = () => {
+        this.props.showCityNameSearchModal()
+    }
+
     render() {
         return(
             <div className="App">
-                <Sticky>
+                    <MobileNavBar titleColor="#ffffff" leftIconName={null} /> 
+                        { /*}<Sticky>
                     <MobileNavBar titleColor="#ffffff" leftIconName={null} /> 
                 </Sticky>
+                */ } 
                 <MobileHeader /> 
                 <GridPopularBanks userSelectedBank={this.userSelectedBankOnGrid} />
                 
@@ -79,7 +89,7 @@ class MobileHomeScreen extends React.Component{
                             <SearchResultsCard mainTitle= {this.props.selectedBank} 
                                 statistic={this.props.allLocationsForSelectedBank.length}  
                                 statisticSubTitle="Locations Found"
-                                onSearchAction = {this.props.showCityNameSearchModal} 
+                                onSearchAction = {this.onCityNameSearch} 
                             />
                             <MobileAd300X250 />
                         </React.Fragment> 
