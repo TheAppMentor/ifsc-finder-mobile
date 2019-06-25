@@ -44,7 +44,15 @@ class MobileHeader extends React.Component{
         alert("searchByIFSCSelected Selected : " + JSON.stringify(selected)) 
     }
 
-    state = {showModal : false}
+    bankNameSearchBarOnFocusAction = () => {
+        this.props.showBankNameSearchModal()
+        this.setState({shouldDisableBankSearchBar : true}) 
+    } 
+
+    state = {
+        showModal : false,
+        shouldDisableBankSearchBar : false
+    }
 
     render() {
         return(
@@ -57,7 +65,9 @@ class MobileHeader extends React.Component{
                     <WhiteSpace size="lg" />
                     <WhiteSpace size="lg" />
                         <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Search Using Bank Name</Title>
-                    <MobileSearchBar onFocusAction={this.props.showBankNameSearchModal} /> 
+                        <MobileSearchBar 
+                            disabled = {this.state.shouldDisableBankSearchBar} 
+                            onFocusAction={this.bankNameSearchBarOnFocusAction} /> 
                     
                     <WhiteSpace size="lg" />
                     <WhiteSpace size="lg" />

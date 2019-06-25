@@ -31,6 +31,7 @@ export default class MobileSearchBar extends React.Component {
                     onBlur={() => console.log('onBlur')}
                     onCancel={() => console.log('onCancel')}
                     onChange={this.onChange}
+                    disabled={this.props.disabled}
                     ref={ref => this.autoFocusInst = ref}
                 />
                 </WingBlank>         
