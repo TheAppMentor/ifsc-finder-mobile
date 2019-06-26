@@ -16,7 +16,8 @@ const { Title } = Typography;
 
 const mapStateToProps = (state) => {
     return {
-        userSelectedBank : state.userSelectionReducer.selectedBank
+        userSelectedBank : state.userSelectionReducer.selectedBank,
+        isShowingBankNameSearchModal : state.visibilityPropertiesReducer.isShowingBankNameSearchModal 
     }
 }
 
@@ -46,12 +47,12 @@ class MobileHeader extends React.Component{
 
     bankNameSearchBarOnFocusAction = () => {
         this.props.showBankNameSearchModal()
-        this.setState({shouldDisableBankSearchBar : true}) 
+        //this.setState({shouldDisableBankSearchBar : isShowingBankNameSearchModal}) 
     } 
 
     state = {
         showModal : false,
-        shouldDisableBankSearchBar : false
+        //shouldDisableBankSearchBar : isShowingBankNameSearchModal 
     }
 
     render() {
@@ -66,7 +67,7 @@ class MobileHeader extends React.Component{
                     <WhiteSpace size="lg" />
                         <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Search Using Bank Name</Title>
                         <MobileSearchBar 
-                            disabled = {this.state.shouldDisableBankSearchBar} 
+                            disabled = {this.props.isShowingBankNameSearchModal} 
                             onFocusAction={this.bankNameSearchBarOnFocusAction} /> 
                     
                     <WhiteSpace size="lg" />

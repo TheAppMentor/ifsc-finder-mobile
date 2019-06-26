@@ -1,7 +1,17 @@
+import { connect } from 'react-redux'
 import React from 'react'
 import { SearchBar, WingBlank } from 'antd-mobile';
 
-export default class MobileSearchBar extends React.Component {
+
+const mapStateToProps = (state) => {
+    return {
+        isShowingCityNameSearchModal: state.visibilityPropertiesReducer.isShowingCityNameSearchModal, 
+        isShowingBranchNameSearchModal: state.visibilityPropertiesReducer.isShowingBranchNameSearchModal
+    }
+}
+
+
+class MobileSearchBar extends React.Component {
     state = {
         value: 'Enter Bank Name',
     };
@@ -31,10 +41,12 @@ export default class MobileSearchBar extends React.Component {
                     onBlur={() => console.log('onBlur')}
                     onCancel={() => console.log('onCancel')}
                     onChange={this.onChange}
-                    disabled={this.props.disabled}
+                    disabled={this.props.isShowingBranchSearchModal || this.props.isShowingBranchSearchModal}
                     ref={ref => this.autoFocusInst = ref}
                 />
                 </WingBlank>         
             </div>);
     }
 }
+
+export default connect(mapStateToProps,null)(MobileSearchBar)
