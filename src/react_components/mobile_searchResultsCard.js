@@ -5,18 +5,13 @@ import { WhiteSpace, WingBlank} from 'antd-mobile';
 import { Typography } from 'antd';
 import MobileSearchBar from './mobile_searchBar'
 
-import {showCityNameSearchModal} from "../actions/actions"
 
 const { Title } = Typography;
+
 const mapStateToProps = (state) => {
     return {
-        userSelectedBank : state.userSelectionReducer.selectedBank
-    }
-} 
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        showCityNameSearchModal : () => {dispatch(showCityNameSearchModal())} 
+        isShowingBranchNameSearchModal : state.visibilityPropertiesReducer.isShowingBranchNameSearchModal,
+        isShowingCityNameSearchModal : state.visibilityPropertiesReducer.isShowingCityNameSearchModal,
     }
 }
 //<SearchResultsCard mainTitle="Allahabad Bank" subTitle="Bangalore" statistic="1950" statisticSubTitle="Branches Found"/> 
@@ -55,7 +50,7 @@ class SearchResultsCard extends React.Component{
                         <hr color="#F0F0F0" width="80%"/> 
                         <WhiteSpace size="lg" />
                         <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Branch Location</Title>
-                        <MobileSearchBar onFocusAction={this.props.onSearchAction } /> 
+                        <MobileSearchBar onFocusAction={this.props.onSearchAction} disabled= {this.props.isShowingBranchNameSearchModal || this.props.isShowingCityNameSearchModal}/> 
                         <WhiteSpace size="lg" />
                     </WingBlank>    
                 </div> 
@@ -63,5 +58,5 @@ class SearchResultsCard extends React.Component{
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(SearchResultsCard)
+export default connect(mapStateToProps,null)(SearchResultsCard)
 

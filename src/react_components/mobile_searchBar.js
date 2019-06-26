@@ -4,8 +4,8 @@ import { SearchBar, WingBlank } from 'antd-mobile';
 
 const mapStateToProps = (state) => {
     return {
-        isShowingCityNameSearchModal: state.visibilityPropertiesReducer.isShowingCityNameSearchModal, 
-        isShowingBranchNameSearchModal: state.visibilityPropertiesReducer.isShowingBranchNameSearchModal
+        //isShowingCityNameSearchModal: state.visibilityPropertiesReducer.isShowingCityNameSearchModal, 
+        //isShowingBranchNameSearchModal: state.visibilityPropertiesReducer.isShowingBranchNameSearchModal
     }
 }
 
