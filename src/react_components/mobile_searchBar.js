@@ -2,14 +2,12 @@ import { connect } from 'react-redux'
 import React from 'react'
 import { SearchBar, WingBlank } from 'antd-mobile';
 
-
 const mapStateToProps = (state) => {
     return {
         isShowingCityNameSearchModal: state.visibilityPropertiesReducer.isShowingCityNameSearchModal, 
         isShowingBranchNameSearchModal: state.visibilityPropertiesReducer.isShowingBranchNameSearchModal
     }
 }
-
 
 class MobileSearchBar extends React.Component {
     state = {
@@ -41,7 +39,7 @@ class MobileSearchBar extends React.Component {
                     onBlur={() => console.log('onBlur')}
                     onCancel={() => console.log('onCancel')}
                     onChange={this.onChange}
-                    disabled={this.props.isShowingBranchSearchModal || this.props.isShowingBranchSearchModal}
+                    disabled={this.props.disabled}
                     ref={ref => this.autoFocusInst = ref}
                 />
                 </WingBlank>         
