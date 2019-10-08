@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {Flex, WhiteSpace,Divider} from 'antd-mobile'
+import {Flex, WhiteSpace} from 'antd-mobile'
 
 import { Typography } from 'antd';
 import MobileNavBar from '../mobile_navbar'
@@ -13,8 +13,6 @@ import GridPopularBanks from '../mobile_gridPopularBanks'
 import MobileAd300X250 from '../mobile_ad_300X250.js'
 import CitySearchModal from './mobile_citySearchModal'
 import BranchSearchModal from './mobile_branchSearchModal'
-
-import Sticky from '@wicked_query/react-sticky'
 
 import {showBranchNameSearchModal,showCityNameSearchModal,resetVisibilityProperties,resetUserSelection, userSelectedBank, userSelectedCity, userSelectedBranch, populateLocationForSelectedBank} from '../../actions/actions'
 
@@ -46,10 +44,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class MobileHomeScreen extends React.Component{
-
-    constructor(props){
-        super(props)
-    }
 
     componentDidMount(){
         window.scrollTo(0, 0)
@@ -169,7 +163,7 @@ class MobileHomeScreen extends React.Component{
                                                     <hr color="#CACACA" style={{height:"0.5px"}}/> 
                                                     <Flex justify="center" > 
                                                         <Flex.Item align="center">
-                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} >Legal Disclaimer</a></Title>
+                                                            <Title style={{fontSize:12 }}><a href="/" style={{fontSize:12 ,color:"#FFFFFF"}} >Legal Disclaimer</a></Title>
                                                         </Flex.Item>
                                                     </Flex> 
                                                     <Flex> 
@@ -179,7 +173,7 @@ class MobileHomeScreen extends React.Component{
                                                     </Flex> 
                                                     <Flex justify="center" > 
                                                         <Flex.Item align="center">
-                                                            <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} >Data last updated : 28-May-2019</a></Title>
+                                                            <Title style={{fontSize:12 }}><a href="/" style={{fontSize:12 ,color:"#FFFFFF"}} >Data last updated : 28-May-2019</a></Title>
                                                             <Title style={{fontSize:12 }}><a style={{fontSize:12 ,color:"#FFFFFF"}} href="www.google.com">© 2019 <a href="https://www.ifsc.today/">www.ifsc.today</a></a></Title>
                                                         </Flex.Item>
                                                     </Flex> 
@@ -209,11 +203,6 @@ const footerStyle = {
   height: "auto",
 };
 
-
-const tagStyle = {
-    margin:"10px", 
-    backgroundColor:"transparent"
-}
 
 export default connect(mapStateToProps,mapDispatchToProps)(MobileHomeScreen)
 
