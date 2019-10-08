@@ -16,26 +16,39 @@ const mapStateToProps = (state) => {
 
 class SearchModalHeader extends React.Component {
 
+    state ={shrink : false } 
+
+    shrink = () => {
+        //       alert("I will now shrink") 
+        this.setState({shrink : true}) 
+    }
+        
+
     render(){
         return (
             <div style={{backgroundColor:"white"}}>
                 <div style={{margin:'0px 18px 0px 18px'}}>
-                    <Title style={{textAlign:"left",fontSize:"32px",color:"black", margin:"0px",marginLeft:"10px",paddingTop:"30px"}}>{this.props.mainTitle}</Title>
+                        {!this.state.shrink &&  
+                            <React.Fragment >
+                            <Title style={{textAlign:"left",fontSize:"32px",color:"black", margin:"0px",marginLeft:"10px",paddingTop:"30px"}}>{this.props.mainTitle}</Title>
                     <Title style={{textAlign:"left",fontSize:"18px",color:"grey", margin:"10px",marginLeft:"10px"}}>{this.props.subTitle}</Title>
-                        <WhiteSpace size="lg"/>
+                </React.Fragment >
+                        }        
+                            <WhiteSpace size= "md" />
+                    
                     <SearchBar 
                         textAlign="left" 
                         cancelText="Cancel"
                         placeholder={this.props.searchBarPlaceHolder}
                         maxLength={15}
+                        onFocus={this.shrink} 
+                        onCancel={() => {this.setState({shrink : false})}} 
                         onChange={this.props.onSearch}
                         disabled= {this.props.isShowingCityNameSearchModal || this.props.isShowingBranchSearchModal}
                     />
-                        <WhiteSpace size="lg"/>
-                        <WhiteSpace size="lg"/>
+                        <WhiteSpace size={this.shrink ? "sm" : "lg"} />
                     </div>
                 </div>
-
         )
     }
 }
