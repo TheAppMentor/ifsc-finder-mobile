@@ -130,15 +130,21 @@ class CitySearchModal extends React.Component {
                     style = {{height:"100%"}} 
                 >
                     <Sticky>
-                        <MobileNavBar onUserLeftButtonClick={this.props.hideBankNameSearchModal}/>             
-                        <SearchModalHeader mainTitle="Select City" searchBarPlaceHolder="Seach City/Town/Village" onSearch={this.onSearch} /> 
+                        <React.Fragment>
+                            <MobileNavBar onUserLeftButtonClick={this.props.hideBankNameSearchModal}/>             
+                            <SearchModalHeader 
+                                mainTitle="Select City" 
+                                searchBarPlaceHolder="Seach City/Town/Village" 
+                                onSearch={this.onSearch} /> 
+                        </React.Fragment>
                     </Sticky>
                             {/*   <MobileListView /> */}
 
                             <List renderHeader={
                                 () => <div style={{textAlign:"left",color:"darkgrey",fontSize:"14px"}} >All Cities ({this.state.filteredCitiesCount})</div>} className="popup-list">
                                     {this.state.filteredCities.map((i, index) => (
-                                        <List.Item key={index} onClick={() => {this.listItemClicked({index:index,title : i})}} style={{fontSize:"12px",color:"blue",marginLeft:"20px"}}>{i.city} - {i.state}</List.Item>))} <List.Item>
+                                        <List.Item key={index} 
+                                            onClick={() => {this.listItemClicked({index:index,title : i})}} style={{fontSize:"12px",color:"blue",marginLeft:"20px"}}>{i.city} - {i.state}</List.Item>))} <List.Item>
                                             <Button type="primary" onClick={this.onClose('modal2')} style={{fontSize : "12px"}}>Please use search bar to find locations</Button>
                                         </List.Item>
                                     </List>

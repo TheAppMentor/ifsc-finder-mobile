@@ -2,7 +2,6 @@ var rp  = require('request-promise')
 var Promise = require('bluebird')
 
 let baseURL = "http://localhost:3000"
-//let baseURL = "https://www.ifsc.today"
 
 // For some reason .. on heroku.. NODE_ENV.. is not set to production.
 if (process.env.REACT_APP_IS_HEROKU === "TRUE"){
@@ -96,9 +95,6 @@ export function fetchBankDetailsForUserSelection(bankName,cityName,branchName){
             })
     })
 }
-
-
-
 
 export function fetchAllLocationForSelectedBank(bankName){
     return new Promise((resolve,reject) => {

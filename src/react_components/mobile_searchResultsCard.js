@@ -14,13 +14,12 @@ const mapStateToProps = (state) => {
         isShowingCityNameSearchModal : state.visibilityPropertiesReducer.isShowingCityNameSearchModal,
     }
 }
-//<SearchResultsCard mainTitle="Allahabad Bank" subTitle="Bangalore" statistic="1950" statisticSubTitle="Branches Found"/> 
 
 class SearchResultsCard extends React.Component{
 
     constructor(props){
         super(props)
-        
+
         //creates a reference for your element to use
         this.myDivToFocus = React.createRef()
     }
@@ -44,13 +43,18 @@ class SearchResultsCard extends React.Component{
 
                 <WingBlank style={{ marginTop: 20, marginBottom: 5 }}>
                     <Title style={{fontSize:24,color:"#8A8A8A",margin:10}}>{this.props.mainTitle}</Title>
-                        {this.props.subTitle && <Title style={{fontSize:18,color:"#8A8A8A",margin:0}}>{this.props.subTitle}</Title>}
-                        <Title  style={{fontSize:36,color:"#000000", marginBottom:0}}>{this.props.statistic}</Title>
-                        <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>{this.props.statisticSubTitle}</Title>
+                        {this.props.subTitle && 
+                                <Title style={mainTitleStyle}>{this.props.subTitle}</Title>}
+                                <Title style={subTitleStyle}>{this.props.statistic}</Title>
+                                <Title style={statisticStyle}>{this.props.statisticSubTitle}</Title>
                         <hr color="#F0F0F0" width="80%"/> 
                         <WhiteSpace size="lg" />
                         <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Branch Location</Title>
-                        <MobileSearchBar onFocusAction={this.props.onSearchAction} disabled= {this.props.isShowingBranchNameSearchModal || this.props.isShowingCityNameSearchModal}/> 
+
+                        <MobileSearchBar 
+                            placeHolder = {this.props.searchBarPlaceHolder} 
+                            onFocusAction={this.props.onSearchAction} 
+                            disabled= {this.props.isShowingBranchNameSearchModal || this.props.isShowingCityNameSearchModal}/> 
                         <WhiteSpace size="lg" />
                     </WingBlank>    
                 </div> 
@@ -60,3 +64,21 @@ class SearchResultsCard extends React.Component{
 
 export default connect(mapStateToProps,null)(SearchResultsCard)
 
+const mainTitleStyle = {
+    fontSize:18,
+    color:"#8A8A8A",
+    margin:0
+}
+
+const subTitleStyle = {
+    fontSize:36,
+    color:"#000000",
+    marginBottom:0
+}
+
+const statisticStyle = {
+    fontSize:14 ,
+    color:"#8A8A8A", 
+    margin:10, 
+    marginTop:0
+}

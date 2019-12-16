@@ -65,13 +65,14 @@ class MobileHeader extends React.Component{
                     <Title level={3} style={{color:"#FAFAFA"}}>Find IFSC Code in 3 easy steps</Title>
                     <WhiteSpace size="lg" />
                     <WhiteSpace size="lg" />
-                        <Title style={{fontSize:14 ,color:"#8A8A8A", margin:10, marginTop:0}}>Search Using Bank Name</Title>
+                        <Title style={mainTitleStyle}>Search Using Bank Name</Title>
                         <MobileSearchBar 
                             disabled = {this.props.isShowingBankNameSearchModal} 
-                            onFocusAction={this.bankNameSearchBarOnFocusAction} /> 
-                    
-                    <WhiteSpace size="lg" />
-                    <WhiteSpace size="lg" />
+                            onFocusAction={this.bankNameSearchBarOnFocusAction} 
+                            placeHolder="Enter Bank Name" 
+                        /> 
+                        <WhiteSpace size="lg" />
+                        <WhiteSpace size="lg" />
             </WingBlank>    
 
             <SearchModal />
@@ -82,3 +83,9 @@ class MobileHeader extends React.Component{
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MobileHeader)
+
+const mainTitleStyle = {
+    fontSize:14 ,
+    color:"#8A8A8A",
+    margin:10, marginTop:0
+}

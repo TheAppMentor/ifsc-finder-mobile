@@ -10,9 +10,11 @@ const mapStateToProps = (state) => {
 }
 
 class MobileSearchBar extends React.Component {
+
     state = {
         value: 'Enter Bank Name',
     };
+
     componentDidMount() {
         //this.manualFocusInst.focus();
         //this.autoFocusInst.focus();
@@ -31,7 +33,7 @@ class MobileSearchBar extends React.Component {
         return (<div>
             <WingBlank>
                 <SearchBar
-                    placeholder="Enter Bank Name"
+                    placeHolder={this.props.searchBarPlaceHolder}
                     cancelText="Cancel"
                     onSubmit={value => console.log(value, 'onSubmit')}
                     onClear={value => console.log(value, 'onClear')}

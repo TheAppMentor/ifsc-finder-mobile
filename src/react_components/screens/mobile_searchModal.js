@@ -66,8 +66,8 @@ class SearchModal extends React.Component {
                 this.props.populateAllBankNames(allBankNames) 
                 this.setState({filteredBanks : allBankNames})
             }).catch((err) => {
-                 console.log("Error! : mobile_searchModal.js :  => " + err)
-             })
+                console.log("Error! : mobile_searchModal.js :  => " + err)
+            })
     }
 
     showModal = key => (e) => {
@@ -76,7 +76,7 @@ class SearchModal extends React.Component {
             [key]: true,
         });
     }
-    
+
     onClose = key => () => {
         this.setState({
             [key]: false,
@@ -121,26 +121,47 @@ class SearchModal extends React.Component {
                     style = {{height:"100%"}} 
                 >
                     <Sticky>
+                        <React.Fragment>
                         <MobileNavBar onUserLeftButtonClick={this.props.hideBankNameSearchModal} leftIconName={'cross'}/>             
+                        <SearchModalHeader mainTitle="Select Bank" searchBarPlaceHolder="Search Bank" onSearch={this.onSearch} />
+                    </React.Fragment>
                     </Sticky>
-                        <SearchModalHeader mainTitle="Select Bank" searchBarPlaceHolder="Search Bank" onSearch={this.onSearch} /> 
-                            <List renderHeader={
-                                () => <div 
-                                    style={{textAlign:"left",color:"darkgrey",fontSize:"14px"}} >All Banks ({this.state.filteredBanks.length})</div>} className="popup-list">
-                                    
-                                    {this.state.filteredBanks.map((i, index) => (
-                                        <List.Item key={index} 
-                                            onClick={() => {this.listItemClicked({index:index,title : i})}} 
-                                            style={{fontSize:"14px",color:"blue",marginLeft:"20px"}}>{i}</List.Item>
-                                    ))}
-                                        <List.Item>
-                                            <Button type="primary" onClick={this.onClose('modal2')}>End</Button>
-                                        </List.Item>
-                                    </List>
-                                </Modal>
-                            </WingBlank>
+                    
+                    <List renderHeader= {
+                        () => 
+                        <Sticky>
+                            <div 
+                                style={subTitleStyle} >All Banks ({this.state.filteredBanks.length})
+                        </div>
+                        </Sticky>
+                            } 
+                            className="popup-list">
+                            {this.state.filteredBanks.map((i, index) => (
+                                <List.Item key={index} 
+                                    onClick= {() => {this.listItemClicked({index:index,title : i})}} 
+                                    style= {listItemStyle}>{i}</List.Item>
+                            ))
+                            }
+                                <List.Item>
+                                    <Button type="primary" onClick={this.onClose('modal2')}>End</Button>
+                                </List.Item>
+                            </List>
+                        </Modal>
+                    </WingBlank>
         );
     }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SearchModal)
+
+const subTitleStyle = {
+    textAlign:"left",
+    color:"darkgrey",
+    fontSize:"14px"
+}
+
+const listItemStyle = {
+    fontSize:"14px",
+    color:"blue",
+    marginLeft:"20px"
+}

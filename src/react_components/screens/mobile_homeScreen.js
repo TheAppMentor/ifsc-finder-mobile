@@ -84,6 +84,7 @@ class MobileHomeScreen extends React.Component{
                                 statistic={this.props.allLocationsForSelectedBank.length}  
                                 statisticSubTitle="Locations Found"
                                 onSearchAction = {this.onCityNameSearch} 
+                                searchBarPlaceHolder = "Search City/Town/Village" 
                             />
                             <MobileAd300X250 />
                         </React.Fragment> 
@@ -99,6 +100,7 @@ class MobileHomeScreen extends React.Component{
                                                 statistic={this.props.allBranchesForSelectedBankSelectedCity ? this.props.allBranchesForSelectedBankSelectedCity.length : 0 } 
                                                 statisticSubTitle="Branches Found"
                                                 onSearchAction = {this.props.showBranchNameSearchModal} 
+                                                searchBarPlaceHolder = "Search Branch" 
                                             /> 
                                                 <MobileAd300X250 />
                                         </React.Fragment> 
